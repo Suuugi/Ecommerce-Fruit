@@ -1,0 +1,25 @@
+Sourced from: https://freesvg.org/
+Graphics License: https://creativecommons.org/publicdomain/zero/1.0/
+
+Apple: 146973
+Watermelon: 2174
+Orange: 18061
+Pear: 38689
+Cherries: 49467
+Strawberry: 18463
+Grapes: 18041
+Mango: 41838
+Blueberry: 5752
+Pomegranate: 186400
+Starfruit: 98996
+Plum: 160040
+Banana: 76151
+Raspberry: 86384
+Papaya: 45562
+Kiwi: 42404
+Pineapple: 42374
+Lime: 5822
+Lemon: 6542
+Coconut: 18099
+Avocado: 18093
+Peach: 60898

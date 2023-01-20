@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<!-- TODO: Styling -->
+<select class="form-select" aria-label="Default select example" onChange="window.location=this.value">
+    <option selected>Sort</option>
+    <option value="?order_by=name">Name (A->Z)</option>
+    <option value="?order_by=-name">Name (Z->A)</option>
+    <option value="?order_by=price">Price (Low -> High)</option>
+    <option value="?order_by=-price">Price (High -> Low)</option>
+</select>
+
+<br>
+
+<div class="shop-content">
+
+    {% for product in products %}
+    <div class="product-box">
+        {% with '../static/images/'|add:product.name|add:'.svg' as image_static %}
+        <img class="product-image" src="{% static image_static %}" alt="{{product.name}}">
+        {% endwith %}
+        <h2 class="product-title">{{product.name}}</h2>
+        <span class="price">${{product.price}}/lb</span>
+        <br>
+        <input class="btn btn-secondary" type="button" value="Add to Cart">
+    </div>
+    {% endfor %}
+</div>
+
+<!-- TODO: Implement Pagination -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a class="btn btn-primary" href="/">&laquo;</a>
+        <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}

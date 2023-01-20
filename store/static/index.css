@@ -1,0 +1,25 @@
+/* https://www.youtube.com/watch?v=18Jvyp60Vbg */
+.shop-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 1.5rem 1.5rem;
+    margin: 0 6rem 0 6rem;
+}
+
+.product-box {
+    margin: 0;
+    position: relative;
+    text-align: center;
+    transition: 0.1s;
+    transition-delay: 10ms;
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+}
+
+.product-image:hover {
+    opacity: 75%;
+    margin: -1em 0 1em 0;
+}
