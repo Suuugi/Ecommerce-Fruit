@@ -3,12 +3,12 @@ import os
 from django.views import generic
 from store.models import Product
 from django.core.paginator import Paginator
-from store.models import Catalog, Order, OrderItem, Product
+from .models import Catalog, Order, OrderItem, Product
 from django.shortcuts import redirect
 
 
 class IndexTemplateView(generic.ListView):
-    paginate_by = 12
+    paginate_by = 10
     model = Product
     template_name = 'index.html'
 
@@ -17,7 +17,7 @@ class IndexTemplateView(generic.ListView):
         # file_name = os.path.join(
         #     os.path.dirname(__file__), 'static\\fruits.txt')
         # build_products_from_txt_file(file_name)
-        page = Paginator(self.get_queryset(), 12)
+        page = Paginator(self.get_queryset(), self.paginate_by)
         context['products'] = page.page(self.request.GET.get('page') or '1')
         context['css'] = 'index.css'
         return context
@@ -26,26 +26,25 @@ class IndexTemplateView(generic.ListView):
         order_by = self.request.GET.get('order_by') or 'name'
         return super().get_queryset().order_by(order_by)
 
-# TODO
 
-
-def add_to_cart(request, product_id):
-    order, created = Order.objects.get_or_create(
-        user=request.user,
-        # is_ordered=False
-    )
-    product = Product.objects.get(id=product_id)
-    print(order)
-    print(product)
-    order_item, created = OrderItem.objects.get_or_create(
-        order=order,
-        product=product,
-        # quantity=1
-    )
-    if not created:
-        order_item.quantity = order_item.quantity + 1
-        order_item.save()
-    return redirect('index')
+def add_to_cart(request):
+    if request.method == "POST":
+        order, created = Order.objects.get_or_create(
+            user=request.user,
+            # is_ordered=False
+        )
+        product = Product.objects.get(id=1)
+        order_item, created = OrderItem.objects.get_or_create(
+            order=order,
+            product=product,
+            # quantity=1
+        )
+        if not created:
+            order_item.quantity = order_item.quantity + 1
+            order_item.save()
+        return redirect('profile')
+    else:
+        return None
 
 
 def build_products_from_txt_file(file_name: str) -> None:

@@ -20,25 +20,35 @@
 
 <body>
     <!-- https://getbootstrap.com/docs/5.3/examples/headers/ -->
-    <header class="py-3 mb-3 border-bottom sticky-top" style="background-color: white">
-        <div class="container-fluid align-items-center">
-            <div class="d-flex align-items-center">
-                <form class="w-100 me-3" role="search">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                </form>
-            </div>
+    <header class="border-bottom sticky-top bg-light">
+        <div class="container">
+            <nav class="d-flex justify-content-between align-items-center">
+                <h1><a class="navbar-brand" href="/">Django Fruitshop</a></h1>
+                <div>
+                    {% if user.is_authenticated %}
+                    <span>Hi
+                        <a href="{% url 'profile' %}">{{user}}</a>
+                    </span>
+                    <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Log Out</a>
+                    {% else %}
+                    <a class="btn btn-light" href="{% url 'signup' %}" role="button">Sign Up</a>
+                    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
+                    {% endif %}
+                </div>
+            </nav>
         </div>
-        <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
-        <a class="btn btn-primary" href="{% url 'signup' %}" role="button">Sign Up</a>
-        <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Log Out</a>
     </header>
     <section>
-        {% block content %}{% endblock content %}
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
     </section>
     <footer>
-        <div class="d-flex align-items-center">
-            <p>Nicholas Sugimoto</p>
-            <p><a href="mailto:nlsugi10@gmail.com">nlsugi10@gmail.com</a></p>
+        <div class="container">
+            <div class="d-flex align-self-horizontal">
+                <p>Nicholas Sugimoto</p>
+                <p><a href="mailto:nlsugi10@gmail.com">nlsugi10@gmail.com</a></p>
+            </div>
         </div>
     </footer>
 </body>

@@ -8,35 +8,38 @@
     <option selected>Sort</option>
     <option value="?order_by=name">Name (A->Z)</option>
     <option value="?order_by=-name">Name (Z->A)</option>
+    {% if user.is_authenticated %}
     <option value="?order_by=price">Price (Low -> High)</option>
     <option value="?order_by=-price">Price (High -> Low)</option>
+    {% endif %}
 </select>
 
 <br>
 
 <div class="shop-content">
-
     {% for product in products %}
     <div class="product-box">
         {% with '../static/images/'|add:product.name|add:'.svg' as image_static %}
         <img class="product-image" src="{% static image_static %}" alt="{{product.name}}">
         {% endwith %}
         <h2 class="product-title">{{product.name}}</h2>
-        <span class="price">${{product.price}}/lb</span>
+        {% if user.is_authenticated %}
+        <span class="price">${{product.price}}</span>
         <br>
-        {% with product.id as product_id %}
-        <a class="btn btn-primary" href="add/{{product.id}}" role="button">Add to Cart</a>
-        {% endwith %}
+        <input class="btn btn-secondary" type="submit" value="Add to Cart">
+        {% else %}
+        <div>Log in to see prices</div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>
 
 <!-- TODO: Implement Pagination -->
-<div class="pagination">
+<div class="pagination justify-content-center">
     <span class="step-links">
         {% if page_obj.has_previous %}
-        <a class="btn btn-primary" href="/">&laquo;</a>
-        <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+        <a class="btn btn-light" href="/">&laquo;</a>
+        <a class="btn btn-light" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
         {% endif %}
 
         <span class="current">
@@ -44,8 +47,8 @@
         </span>
 
         {% if page_obj.has_next %}
-        <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
-        <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+        <a class="btn btn-light" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a class="btn btn-light" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
         {% endif %}
     </span>
 </div>
