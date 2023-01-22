@@ -3,6 +3,8 @@ import os
 from django.views import generic
 from store.models import Product
 from django.core.paginator import Paginator
+from store.models import Catalog, Order, OrderItem, Product
+from django.shortcuts import redirect
 
 
 class IndexTemplateView(generic.ListView):
@@ -23,6 +25,27 @@ class IndexTemplateView(generic.ListView):
     def get_queryset(self):
         order_by = self.request.GET.get('order_by') or 'name'
         return super().get_queryset().order_by(order_by)
+
+# TODO
+
+
+def add_to_cart(request, product_id):
+    order, created = Order.objects.get_or_create(
+        user=request.user,
+        # is_ordered=False
+    )
+    product = Product.objects.get(id=product_id)
+    print(order)
+    print(product)
+    order_item, created = OrderItem.objects.get_or_create(
+        order=order,
+        product=product,
+        # quantity=1
+    )
+    if not created:
+        order_item.quantity = order_item.quantity + 1
+        order_item.save()
+    return redirect('index')
 
 
 def build_products_from_txt_file(file_name: str) -> None:

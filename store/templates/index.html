@@ -24,7 +24,9 @@
         <h2 class="product-title">{{product.name}}</h2>
         <span class="price">${{product.price}}/lb</span>
         <br>
-        <input class="btn btn-secondary" type="button" value="Add to Cart">
+        {% with product.id as product_id %}
+        <a class="btn btn-primary" href="add/{{product.id}}" role="button">Add to Cart</a>
+        {% endwith %}
     </div>
     {% endfor %}
 </div>
