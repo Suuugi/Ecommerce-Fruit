@@ -1,13 +1,13 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView
 
-from accounts.views import SignupCreateView, UserLogoutView
+from accounts.views import SignupCreateView, UserLoginView, UserLogoutView
 
 # Provided URL Patterns for path('accounts/', include('django.contrib.auth.urls'))
 # https://docs.djangoproject.com/en/4.1/topics/auth/default/#user-objects
 urlpatterns = [
     path('signup/', SignupCreateView.as_view(), name='signup'),
-    path('login/', LoginView.as_view(), name='login'),
+    path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     # Provided Out of the Box
     # ==============================

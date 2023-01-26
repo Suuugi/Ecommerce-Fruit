@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -141,3 +142,12 @@ LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'accounts/login' # DEFAULT LOCATION
 # LOGOUT_REDIRECT_URL = 'index' # SAME PLACE /admin LOGOUT GOES
 PASSWORD_RESET_TIMEOUT = 259200 # DEFAULT TIME: 3 days
+
+# Django messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
