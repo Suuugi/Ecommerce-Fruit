@@ -139,9 +139,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # https://docs.djangoproject.com/en/4.1/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'accounts/login' # DEFAULT LOCATION
-# LOGOUT_REDIRECT_URL = 'index' # SAME PLACE /admin LOGOUT GOES
+# LOGOUT_REDIRECT_URL = 'home' # SAME PLACE /admin LOGOUT GOES
 PASSWORD_RESET_TIMEOUT = 259200 # DEFAULT TIME: 3 days
 
 # Django messages

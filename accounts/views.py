@@ -16,4 +16,4 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     success_message = 'Successfully Logged In'
 
 class UserLogoutView(LogoutView):
-    next_page = 'index'
+    next_page = 'home'

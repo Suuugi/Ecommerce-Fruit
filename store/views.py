@@ -1,16 +1,16 @@
 import random
 import os
-from django.views import generic
+from django.views.generic import ListView
 from store.models import Product
 from django.core.paginator import Paginator
-from .models import Catalog, Order, OrderItem, Product
+from store.models import Order, OrderItem, Product
 from django.shortcuts import redirect
 
 
-class IndexTemplateView(generic.ListView):
+class HomeTemplateView(ListView):
     paginate_by = 10
     model = Product
-    template_name = 'index.html'
+    template_name = 'home.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,7 +19,6 @@ class IndexTemplateView(generic.ListView):
         # build_products_from_txt_file(file_name)
         page = Paginator(self.get_queryset(), self.paginate_by)
         context['products'] = page.page(self.request.GET.get('page') or '1')
-        context['css'] = 'index.css'
         return context
 
     def get_queryset(self):
