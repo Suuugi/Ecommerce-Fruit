@@ -13,7 +13,7 @@ class SignupCreateView(CreateView):
     success_url = reverse_lazy('login')  
 
 class UserLoginView(SuccessMessageMixin, LoginView):
-    success_message = "Successfully Logged In"
+    success_message = 'Successfully Logged In'
 
 class UserLogoutView(LogoutView):
     next_page = 'index'

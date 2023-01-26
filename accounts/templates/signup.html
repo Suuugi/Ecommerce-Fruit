@@ -1,15 +1,8 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <form method="post" action="{% url 'signup' %}">
     {% csrf_token %}
-    <!-- {% for field in form %}
-    <div class="form-group">
-        <label for="{{field.name}}">{{field.label}}</label>
-        <div class="form-control">{{field}}</div>
-    </div>
-    {% endfor %} -->
-
     {{form.as_p}}
     <input type="submit" value="Sign Up">
 </form>

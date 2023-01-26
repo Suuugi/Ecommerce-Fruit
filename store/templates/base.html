@@ -10,28 +10,33 @@
     <meta name="author" content="Nicholas Sugimoto and Bootstrap contributors">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static 'index.css' %}">
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon/favicon.ico' %}" />
 </head>
 
 <body>
     <!-- https://getbootstrap.com/docs/5.3/examples/headers/ -->
-    <header class="border-bottom sticky-top bg-light">
+    <header class="border-bottom sticky-top text-bg-dark">
         <div class="container">
             <nav class="d-flex justify-content-between align-items-center">
                 <h1><a class="navbar-brand" href="/">Django Fruitshop</a></h1>
                 <div>
                     {% if user.is_authenticated %}
-                    <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Log Out</a>
+                    <a class="btn btn-outline-light" href="{% url 'logout' %}" role="button">Log Out <i class="fa-regular fa-right-from-bracket"></i></a>
                     {% else %}
-                    <a class="btn btn-light" href="{% url 'signup' %}" role="button">Sign Up</a>
-                    <a class="btn btn-primary" href="{% url 'login' %}" role="button">Log In</a>
+                    
+                    <a class="btn btn-outline-light" href="{% url 'login' %}" role="button">Login <i class="fa-regular fa-right-to-bracket"></i></a>
+                    <a class="btn btn-primary" href="{% url 'signup' %}" role="button">Sign Up <i class="fa-regular fa-user-plus"></i></a>
                     {% endif %}
                 </div>
             </nav>
         </div>
     </header>
     <section>
+        <br>
         <div class="container">
             <!-- Messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/ -->
             {% block messages %}
@@ -47,17 +52,23 @@
                     </div>
                 {% endfor %}
             {% endif %}
-
+                                <!-- https://stackoverflow.com/questions/40224834/bootstrap-dismissible-alert-not-working -->
+                                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ message }}
+                                </div>
             {% endblock messages %}
             {% block content %}{% endblock content %}
         </div>
     </section>
     <footer>
+        <br>
         <div class="container">
-            <div class="d-flex align-self-horizontal">
-                <p>Nicholas Sugimoto</p>
-                <p><a href="mailto:nlsugi10@gmail.com">nlsugi10@gmail.com</a></p>
-            </div>
+            <p>Nicholas Sugimoto</p>
+            <p><a href="mailto:nlsugi10@gmail.com">nlsugi10@gmail.com</a></p>
+            <p><a href="{% url 'github' %}"><i class="fa-brands fa-github"></i></a></p>
         </div>
     </footer>
 </body>

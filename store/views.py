@@ -28,7 +28,7 @@ class IndexTemplateView(generic.ListView):
 
 
 def add_to_cart(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         order, created = Order.objects.get_or_create(
             user=request.user,
             # is_ordered=False
