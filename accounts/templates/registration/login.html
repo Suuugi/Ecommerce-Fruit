@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="login">
-</form>
+<div class="text-center">
+    <form method="POST" action="{% url 'login' %}" >
+        {% csrf_token %}
+        <div class="form-floating">
+            <input type="text" name="{{form.username.name}}" class="form-control" placeholder="Username">
+            {{ form.username.label_tag }}
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" name="{{form.password.name}}" class="form-control" placeholder="Password">
+            {{ form.password.label_tag }}
+        </div>
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in">
+    </form>
+</div>
 {% endblock %}

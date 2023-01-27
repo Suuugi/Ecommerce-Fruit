@@ -1,3 +1,28 @@
+/* https://css-tricks.com/how-to-use-css-grid-for-sticky-headers-and-footers/ */
+#storefront {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        'header'
+        'section'
+        'footer';
+        overflow: auto;
+}
+
+#storefront > header {
+    grid-area: header;
+}
+
+#storefront > section {
+    grid-area: section;
+}
+
+#storefront > footer {
+    grid-area: footer;
+}
+
 /* https://www.youtube.com/watch?v=18Jvyp60Vbg */
 .shop-content {
     display: grid;
