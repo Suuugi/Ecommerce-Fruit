@@ -6,7 +6,7 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
         'header'
-        'section'
+        'main'
         'footer';
         overflow: auto;
 }
@@ -15,8 +15,8 @@
     grid-area: header;
 }
 
-#storefront > section {
-    grid-area: section;
+#storefront > main {
+    grid-area: main;
 }
 
 #storefront > footer {
