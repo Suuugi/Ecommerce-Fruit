@@ -5,6 +5,7 @@ from store.views import HomeTemplateView
 
 urlpatterns = [
     path('', HomeTemplateView.as_view(), name='home'),
-    path('github', RedirectView.as_view(url='https://github.com/Suuugi/Ecommerce-Fruit'), name='github'),
-    path('linkedin', RedirectView.as_view(url='https://www.linkedin.com/in/nicholassugimoto'), name='linkedin')
+    path('facebook', RedirectView.as_view(url='https://www.facebook.com/nick.sugimoto'), name='facebook'),
+    path('github', RedirectView.as_view(url='https://github.com/Suuugi'), name='github'),
+    path('linkedin', RedirectView.as_view(url='https://www.linkedin.com/in/nicholassugimoto'), name='linkedin'),
 ]
