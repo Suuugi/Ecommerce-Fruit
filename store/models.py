@@ -11,13 +11,6 @@ class Product(models.Model):
     class Meta:
         ordering = ['name']
 
-
-class Catalog(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField(default=10)
-    selling_product = models.BooleanField(default=True)
-
-
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     is_ordered = models.BooleanField(default=False)

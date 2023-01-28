@@ -1,9 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" action="{% url 'signup' %}">
+<form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Sign Up">
+    <!-- First Name -->
+    <div class="form-floating mb-3 mt-5">
+        <input type="text" name="{{form.first_name.name}}" class="form-control" placeholder="First Name">
+        {{ form.first_name.label_tag }}
+    </div>
+    
+    <!-- Last Name -->
+    <div class="form-floating mb-3">
+        <input type="text" name="{{form.last_name.name}}" class="form-control" placeholder="Last Name">
+        {{ form.last_name.label_tag }}
+    </div>
+
+    <!-- Email -->
+    <div class="form-floating mb-3">
+        <input type="email" name="{{form.email.name}}" class="form-control" placeholder="Email">
+        {{ form.email.label_tag }}
+    </div>
+
+    <!-- Username: Required Field -->
+    <div class="form-floating mb-3">
+        <input type="text" name="{{form.username.name}}" class="form-control" placeholder="Username">
+        {{ form.username.label_tag }}
+    </div>
+    {% if form.username.help_text %}
+            <small style="color: grey">{{ form.username.help_text }}</small>
+    {% endif %}
+    {% for error in form.username.errors %}
+        <p style="color: red">{{ error }}</p>
+    {% endfor %}
+
+    <!-- Password -->
+    <div class="form-floating">
+        <input type="password" name="{{form.password1.name}}" class="form-control" placeholder="Password">
+        {{ form.password1.label_tag }}
+    </div>
+    {% if form.password1.help_text %}
+            <small style="color: grey">{{ form.password1.help_text }}</small>
+    {% endif %}
+
+    <!-- Password Confirmation -->
+    <div class="form-floating">
+        <input type="password" name="{{form.password2.name}}" class="form-control" placeholder="Password Confirmation">
+        {{ form.password2.label_tag }}
+    </div>
+    {% if form.password2.help_text %}
+    <small style="color: grey">{{ form.password2.help_text }}</small>
+    {% endif %}
+    
+    <!-- Sign up Button -->
+    <input class="w-100 btn btn-lg btn-primary mt-4 mb-5" type="submit" value="Sign up">
 </form>
 {% endblock %}
