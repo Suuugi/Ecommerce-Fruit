@@ -21,15 +21,15 @@
     <div class="product-box">
         {% with '../static/images/'|add:product.name|add:'.svg' as image_static %}
         <img class="product-image" src="{% static image_static %}" alt="{{product.name}}">
-        {% endwith %}
         <h2 class="product-title">{{product.name}}</h2>
         {% if user.is_authenticated %}
         <span class="price">${{product.price}}</span>
+        {% include 'product-modal.html' %}
         <br>
-        <input class="btn btn-secondary" type="submit" value="Add to Cart">
         {% else %}
         <div>Log in to see prices</div>
         {% endif %}
+        {% endwith %}
     </div>
     {% endfor %}
 </div>

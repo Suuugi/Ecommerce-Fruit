@@ -4,10 +4,11 @@ from django.views.generic import ListView
 from store.models import Product
 from django.core.paginator import Paginator
 from store.models import Order, OrderItem, Product
-from django.shortcuts import redirect
+from store.forms import OrderItemForm
+from django.http import Http404
 
 
-class HomeTemplateView(ListView):
+class HomepageListView(ListView):
     paginate_by = 10
     model = Product
     template_name = 'home.html'
@@ -19,31 +20,32 @@ class HomeTemplateView(ListView):
         # build_products_from_txt_file(file_name)
         page = Paginator(self.get_queryset(), self.paginate_by)
         context['products'] = page.page(self.request.GET.get('page') or '1')
+        context['order_item_form'] = OrderItemForm()
         return context
 
     def get_queryset(self):
         order_by = self.request.GET.get('order_by') or 'name'
         return super().get_queryset().order_by(order_by)
 
-
-def add_to_cart(request):
+def add_to_cart(request, product_id):
     if request.method == 'POST':
+        product = Product.objects.get(id=product_id)
+        quantity = int(request.POST['quantity'])
         order, created = Order.objects.get_or_create(
             user=request.user,
-            # is_ordered=False
+            is_ordered=False
         )
-        product = Product.objects.get(id=1)
         order_item, created = OrderItem.objects.get_or_create(
             order=order,
             product=product,
-            # quantity=1
         )
-        if not created:
-            order_item.quantity = order_item.quantity + 1
-            order_item.save()
-        return redirect('profile')
+        if created:
+            order_item.quantity = quantity
+        else:
+            order_item.quantity = order_item.quantity + quantity
+        order_item.save()
     else:
-        return None
+        raise Http404()
 
 
 def build_products_from_txt_file(file_name: str) -> None:
