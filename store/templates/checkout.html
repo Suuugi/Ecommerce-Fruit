@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form method="POST">
+{% for item in order_items %}
+{% with '../static/images/'|add:item.product.name|add:'.svg' as image_static %}
+<img class="product-image" src="{% static image_static %}" alt="{{item.product.name}}">
+{% endwith %}
+{{item.product.name}}
+${{item.product.price}}
+{{item.quantity}}
+{% endfor %}
+{{sum}}
+</form>
+{% endblock content %}

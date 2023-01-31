@@ -1,18 +1,18 @@
 {% load static %}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addToCart">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addToCart-{{product.id}}">
     Add to Cart
   </button>
   
 <!-- Modal -->
 <form method="POST" action="{% url 'add-to-cart' product.id %}">
     {% csrf_token %}
-    <div class="modal fade" id="addToCart" tabindex="-1" aria-labelledby="addToCartLabel" aria-hidden="true">
+    <div class="modal fade" id="addToCart-{{product.id}}" tabindex="-1" aria-labelledby="addToCart{{product.id}}Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <img class="product-image" src="{% static image_static %}" alt="{{product.name}}">
-                    <h1 class="modal-title fs-5" id="addToCartLabel">{{product.name}}</h1>
+                    <h1 class="modal-title fs-5" id="addToCart{{product.id}}Label">{{product.name}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

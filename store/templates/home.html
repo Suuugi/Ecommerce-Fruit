@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-<!-- TODO: Styling -->
 <select class="form-select" aria-label="Default select example" onChange="window.location=this.value">
     <option selected>Sort</option>
     <option value="?order_by=name">Name (A->Z)</option>
@@ -24,7 +23,7 @@
         <h2 class="product-title">{{product.name}}</h2>
         {% if user.is_authenticated %}
         <span class="price">${{product.price}}</span>
-        {% include 'product-modal.html' %}
+        {% include 'product-modal.html' with product=product %}
         <br>
         {% else %}
         <div>Log in to see prices</div>

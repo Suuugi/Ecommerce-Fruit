@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from store.models import Order, OrderItem, Product
 from store.forms import OrderItemForm
 from django.http import Http404
+from django.shortcuts import redirect
 
 
 class HomepageListView(ListView):
@@ -27,7 +28,7 @@ class HomepageListView(ListView):
         order_by = self.request.GET.get('order_by') or 'name'
         return super().get_queryset().order_by(order_by)
 
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id : int):
     if request.method == 'POST':
         product = Product.objects.get(id=product_id)
         quantity = int(request.POST['quantity'])
@@ -44,8 +45,27 @@ def add_to_cart(request, product_id):
         else:
             order_item.quantity = order_item.quantity + quantity
         order_item.save()
+        return redirect('home')
     else:
         raise Http404()
+
+class CheckoutListView(ListView):
+    model = OrderItem
+    template_name = 'checkout.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order, created = Order.objects.get_or_create(
+            user=self.request.user,
+            is_ordered=False
+        )
+        order_items = OrderItem.objects.filter(
+            order=order,
+        )
+        context['order_items'] = order_items
+        context['sum'] = sum([item.product.price * item.quantity for item in order_items])
+        return context
+
 
 
 def build_products_from_txt_file(file_name: str) -> None:
